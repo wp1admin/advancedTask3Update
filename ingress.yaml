@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  annotations:
+    konghq.com/strip-path: "true"
+spec:
+  ingressClassName: kong
+  rules:
+  - http:
+      paths:
+      - path: /producer
+        pathType: Prefix
+        backend:
+          service:
+            name: producer            
+            port:
+              number: 80
+      - path: /consumer
+        pathType: Prefix
+        backend:
+          service:
+            name: consumer
+            port:
+              number: 80
+      - path: /products
+        pathType: Prefix
+        backend:
+          service:
+            name: product            
+            port:
+              number: 80
